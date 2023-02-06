@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RotationHandler : MonoBehaviour
 {
-    [SerializeField] float speed;
+     [SerializeField] float speed;
     [SerializeField] TMPro.TextMeshProUGUI texts;
     void Update()
     {
@@ -10,21 +10,27 @@ public class RotationHandler : MonoBehaviour
          {
             Touch touch;
             touch = Input.GetTouch(0);
-            if (touch.phase== TouchPhase.Began)
+            if (touch.phase== TouchPhase.Began||touch.phase == TouchPhase.Moved||touch.phase == TouchPhase.Stationary)
             {
                 Debug.Log(touch.position);
                 //texts.text = touch.position.ToString();
 
                 if (touch.position.x<Screen.width/2)
                 {
-                    transform.Rotate(speed * Time.deltaTime * Vector3.back);
+                    //transform.Rotate(speed * Time.deltaTime * Vector3.back);
+                    //transform.Rotate(new Vector3(0,0,-speed * Time.deltaTime));
                     //transform.eulerAngles += Vector3.forward*speed * Time.deltaTime;
+
+                    transform.rotation *= Quaternion.AngleAxis(speed * Time.deltaTime, Vector3.back);
                     texts.text = "Left Touch";
                 }
                 else if(touch.position.x>Screen.width/2)
                 {
-                    transform.Rotate(speed * Time.deltaTime * Vector3.forward);
+                    //transform.Rotate(speed * Time.deltaTime * Vector3.forward);
+                   // transform.Rotate(new Vector3(0,0,speed * Time.deltaTime));
                     //transform.eulerAngles -= Vector3.forward*speed * Time.deltaTime;
+
+                    transform.rotation *= Quaternion.AngleAxis(speed * Time.deltaTime, Vector3.forward);
                     texts.text = "Right Touch";
                 }
             }
