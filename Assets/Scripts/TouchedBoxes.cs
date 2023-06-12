@@ -8,6 +8,13 @@ public class TouchedBoxes : MonoBehaviour
     [SerializeField] ParticleSystem burst;
     [SerializeField] GameObject GameOver;
 
+    private AudioSource TouchedAudio;
+
+
+    private void Start()
+    {
+        TouchedAudio= GetComponent<AudioSource>();
+    }
 
 
     void Update()
@@ -31,6 +38,7 @@ public class TouchedBoxes : MonoBehaviour
     {
         if (collision.gameObject.name == "box")
         {
+            TouchedAudio.Play();
             Time.timeScale = 0.2f;
             burst.Play();
             //this.gameObject.SetActive(false);
